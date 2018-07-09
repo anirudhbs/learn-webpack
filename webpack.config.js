@@ -1,24 +1,43 @@
-const HTMLWebpackPlugin = require('html-webpack-plugin')
-const HTMLWebpackPluginConfig = new HTMLWebpackPlugin({
-  template: __dirname + '/app/index.html',
-  filename: 'index.html',
-  inject: 'body'
-})
+const HtmlWebPackPlugin = require('html-webpack-plugin')
+const CleanWebPackPlugin = require('clean-webpack-plugin')
+const path = require('path')
+
+const pathsToClean = ['build']
+const cleanOptions = {
+  root: __dirname,
+  exclude: [],
+  verbose: true,
+  dry: false
+}
+
+const plugins = [ // order matters!
+  new CleanWebPackPlugin(pathsToClean, cleanOptions),
+  new HtmlWebPackPlugin({
+    template: './src/index.html',
+    filename: './index.html'
+  })
+]
 
 module.exports = {
-  entry: __dirname + '/app/index.js',
+  entry: './src/index.js',
+  output: {
+    path: path.join(__dirname, '/build'),
+    filename: 'bundle.js'
+  },
   module: {
-    loaders: [
+    rules: [
       {
         test: /\.js$/,
         exclude: /node_modules/,
-        loader: 'babel-loader'
+        use: {
+          loader: 'babel-loader'
+        }
+      },
+      {
+        test: /\.css$/,
+        use: ['style-loader', 'css-loader']
       }
     ]
   },
-  output: {
-    filename: 'transformed.js',
-    path: __dirname + '/build'
-  },
-  plugins: [HTMLWebpackPluginConfig]
+  plugins: plugins
 }
