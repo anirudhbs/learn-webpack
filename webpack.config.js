@@ -13,5 +13,38 @@ module.exports = {
     path: path.resolve(__dirname, 'build'),
     filename: '[name].bundle.js',
     chunkFilename: '[name].[chunk].js'
+  },
+  module: {
+    rules: [
+      {
+        test: /\.js$/, // file name pattern
+        exclude: /node_modules/,
+        use: [
+          {
+            loader: './remove-comments-loader.js'
+          },
+          {
+            loader: 'babel-loader',
+            options: { // usually stored in .babelrc file
+              presets: ['env']
+              // plugins: babel plugins used go here
+            }
+          }
+        ]
+      },
+      {
+        test: /\.scss$/,
+        use: [
+          { // order matters, bottom up order
+            loader: 'style-loader'
+          },
+          {
+            loader: 'css-loader'
+          },
+          {
+            loader: 'sass-loader'
+          }]
+      }
+    ]
   }
 }
