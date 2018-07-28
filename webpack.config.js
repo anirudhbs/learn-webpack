@@ -21,6 +21,9 @@ module.exports = {
         exclude: /node_modules/,
         use: [
           {
+            loader: './remove-console-logs.js'
+          },
+          {
             loader: './remove-comments-loader.js'
           },
           {
