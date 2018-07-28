@@ -1,18 +1,9 @@
-// import moduleA from './moduleA'
-// import CSVData from './sample-data.csv'
 import React from 'react'
 import ReactDOM from 'react-dom'
+import x from './moduleA'
 
-console.log('hello world!')
-console.log('imported moduleA', moduleA)
-// console.log('CSV data', CSVData)
+ReactDOM.render(x, document.getElementById('root'))
 
-console.log(ReactDOM)
-
-import('./moduleA')
-  .then(res => {
-    console.log('imported module A', moduleA)
-  })
-  .catch(err => {
-    console.error('error', err)
-  })
+if (module.hot) { // for HMR
+  module.hot.accept()
+}

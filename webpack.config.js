@@ -1,6 +1,6 @@
 const path = require('path')
 const CleanWebpackPlugin = require('clean-webpack-plugin')
-
+const webpack = require('webpack')
 const pathsToClean = ['build']
 
 const cleanOptions = {
@@ -24,12 +24,21 @@ class HelloWorldPlugin {
 }
 
 module.exports = {
-  mode: 'development',
+  mode: 'production',
   context: path.resolve(__dirname, 'src'),
   entry: {
     main: './index.js',
     moduleA: './moduleA.js'
     // vendor: [] // 'react', 'react-dom', 'redux'
+  },
+  devServer: {
+    hot: true,
+    // historyApiFallback: true,
+    proxy: {
+      '/api': 'http://localhost:3000' // route to API server
+      // sends all /api requests to localhost
+    },
+    open: true
   },
   optimization: {
     splitChunks: {
@@ -45,13 +54,16 @@ module.exports = {
           reuseExistingChunk: true
         }
       }
+    },
+    runtimeChunk: {
+      name: 'runtime'
     }
   },
-  devtool: 'source-map', // for debugging?
+  devtool: 'inline-source-map', // for debugging?
   output: {
     path: path.resolve(__dirname, 'build'),
-    filename: '[name].bundle.js',
-    chunkFilename: '[name].[chunk].js'
+    filename: '[name].js',
+    chunkFilename: '[name].[chunkhash].js'
   },
   module: {
     rules: [
@@ -102,6 +114,7 @@ module.exports = {
     new CleanWebpackPlugin(pathsToClean, cleanOptions),
     new HelloWorldPlugin({
       message: '\nhello world!\n'
-    })
+    }),
+    new webpack.HotModuleReplacementPlugin()
   ]
 }
