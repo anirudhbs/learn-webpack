@@ -1,4 +1,4 @@
 node_modules/
 .todo
 package-lock.json
-dist/
+build/
