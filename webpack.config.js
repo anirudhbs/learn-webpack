@@ -17,9 +17,8 @@ class HelloWorldPlugin {
 
   apply (compiler) {
     // compiler.hooks.tapAsync('HelloWorldPlugin', function (compilation, callback) {
-      // var filelist = 'in this build\n\n'
-
-      console.log('hello world')
+    // var filelist = 'in this build\n\n'
+    console.log('hello world')
     // })
   }
 }
@@ -28,12 +27,24 @@ module.exports = {
   mode: 'development',
   context: path.resolve(__dirname, 'src'),
   entry: {
-    main: './index.js'
+    main: './index.js',
+    moduleA: './moduleA.js'
     // vendor: [] // 'react', 'react-dom', 'redux'
   },
   optimization: {
     splitChunks: {
-      chunks: 'all'
+      chunks: 'all',
+      cacheGroups: {
+        vendors: {
+          test: /[\\/]node_modules[\\/]/,
+          priority: -10
+        },
+        default: {
+          minChunks: 2,
+          priority: -20,
+          reuseExistingChunk: true
+        }
+      }
     }
   },
   devtool: 'source-map', // for debugging?
