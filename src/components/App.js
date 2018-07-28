@@ -1,12 +1,7 @@
-import React, { Component } from 'react'
-import '../styles.css'
+import React from 'react'
 
-class App extends Component {
-  render () {
-    return (
-      <div>Same color T-shirt</div>
-    )
-  }
-}
+const App = () => (
+  <div>Hello there!</div>
+)
 
 export default App

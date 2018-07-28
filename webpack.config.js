@@ -1,6 +1,8 @@
 const path = require('path')
+const HtmlWebPackPlugin = require('html-webpack-plugin')
 const CleanWebpackPlugin = require('clean-webpack-plugin')
-const webpack = require('webpack')
+
+const HelloWorldPlugin = require('./HelloWorldPlugin')
 const pathsToClean = ['build']
 
 const cleanOptions = {
@@ -10,33 +12,17 @@ const cleanOptions = {
   dry: false
 }
 
-class HelloWorldPlugin {
-  constructor (options) {
-    this.options = options
-  }
-
-  apply (compiler) {
-    // compiler.hooks.tapAsync('HelloWorldPlugin', function (compilation, callback) {
-    // var filelist = 'in this build\n\n'
-    console.log('hello world')
-    // })
-  }
-}
-
 module.exports = {
-  mode: 'production',
+  mode: 'development',
   context: path.resolve(__dirname, 'src'),
   entry: {
     main: './index.js',
-    moduleA: './moduleA.js'
-    // vendor: [] // 'react', 'react-dom', 'redux'
+    vendor: ['react', 'react-dom'] // 'react', 'react-dom', 'redux'
   },
   devServer: {
-    hot: true,
-    // historyApiFallback: true,
+    // hot: true,
     proxy: {
-      '/api': 'http://localhost:3000' // route to API server
-      // sends all /api requests to localhost
+      '/api': 'http://localhost:3000' // route to API server: sends all /api requests to localhost
     },
     open: true
   },
@@ -76,22 +62,14 @@ module.exports = {
         ]
       },
       {
-        test: /\.js$/, // file name pattern
+        test: /\.js$/,
         exclude: /node_modules/,
         use: [
-          // {
-          //   loader: './remove-console-logs.js'
-          // },
           {
             loader: './remove-comments-loader.js'
           },
           {
-            loader: 'babel-loader',
-            options: { // usually stored in .babelrc file
-              presets: ['env'],
-              plugins: ['syntax-dynamic-import']
-              // plugins: babel plugins used go here
-            }
+            loader: 'babel-loader'
           }
         ]
       },
@@ -115,6 +93,10 @@ module.exports = {
     new HelloWorldPlugin({
       message: '\nhello world!\n'
     }),
-    new webpack.HotModuleReplacementPlugin()
+    new HtmlWebPackPlugin({
+      template: './index.html',
+      filename: './index.html'
+    })
+    // new webpack.HotModuleReplacementPlugin()
   ]
 }
