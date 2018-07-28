@@ -2,10 +2,16 @@ const path = require('path')
 
 module.exports = {
   mode: 'development',
-  entry: './src/index',
+  context: path.resolve(__dirname, 'src'),
+  entry: {
+    main: './index.js',
+    moduleA: './moduleA.js'
+    // vendor: [] // 'react', 'react-dom', 'redux'
+  },
   devtool: 'source-map', // for debugging?
   output: {
     path: path.resolve(__dirname, 'build'),
-    filename: 'bundle.js'
+    filename: '[name].bundle.js',
+    chunkFilename: '[name].[chunk].js'
   }
 }
