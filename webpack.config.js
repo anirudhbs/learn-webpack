@@ -17,7 +17,9 @@ class HelloWorldPlugin {
 
   apply (compiler) {
     // compiler.hooks.tapAsync('HelloWorldPlugin', function (compilation, callback) {
-      console.log('\nHello world!\n')
+      // var filelist = 'in this build\n\n'
+
+      console.log('hello world')
     // })
   }
 }
@@ -28,6 +30,11 @@ module.exports = {
   entry: {
     main: './index.js'
     // vendor: [] // 'react', 'react-dom', 'redux'
+  },
+  optimization: {
+    splitChunks: {
+      chunks: 'all'
+    }
   },
   devtool: 'source-map', // for debugging?
   output: {
@@ -49,9 +56,9 @@ module.exports = {
         test: /\.js$/, // file name pattern
         exclude: /node_modules/,
         use: [
-          {
-            loader: './remove-console-logs.js'
-          },
+          // {
+          //   loader: './remove-console-logs.js'
+          // },
           {
             loader: './remove-comments-loader.js'
           },
@@ -81,6 +88,8 @@ module.exports = {
   },
   plugins: [
     new CleanWebpackPlugin(pathsToClean, cleanOptions),
-    new HelloWorldPlugin()
+    new HelloWorldPlugin({
+      message: '\nhello world!\n'
+    })
   ]
 }
