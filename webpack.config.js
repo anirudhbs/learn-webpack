@@ -76,7 +76,8 @@ module.exports = {
           {
             loader: 'babel-loader',
             options: { // usually stored in .babelrc file
-              presets: ['env']
+              presets: ['env'],
+              plugins: ['syntax-dynamic-import']
               // plugins: babel plugins used go here
             }
           }
