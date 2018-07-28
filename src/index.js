@@ -1,5 +1,9 @@
 import React from 'react'
-import { render } from 'react-dom'
-import App from './components/App'
+import ReactDOM from 'react-dom'
+import x from './moduleA'
 
-render(<App />, document.getElementById('root'))
+ReactDOM.render(x, document.getElementById('root'))
+
+if (module.hot) { // for HMR
+  module.hot.accept()
+}

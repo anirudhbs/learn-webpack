@@ -1,4 +1,4 @@
-.todo
 node_modules/
-build/
+.todo
 package-lock.json
+build/
