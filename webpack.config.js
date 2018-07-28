@@ -3,11 +3,23 @@ const CleanWebpackPlugin = require('clean-webpack-plugin')
 
 const pathsToClean = ['build']
 
-let cleanOptions = {
+const cleanOptions = {
   root: __dirname,
   exclude: [],
   verbose: true,
   dry: false
+}
+
+class HelloWorldPlugin {
+  constructor (options) {
+    this.options = options
+  }
+
+  apply (compiler) {
+    // compiler.hooks.tapAsync('HelloWorldPlugin', function (compilation, callback) {
+      console.log('\nHello world!\n')
+    // })
+  }
 }
 
 module.exports = {
@@ -69,5 +81,6 @@ module.exports = {
   },
   plugins: [
     new CleanWebpackPlugin(pathsToClean, cleanOptions),
+    new HelloWorldPlugin()
   ]
 }
