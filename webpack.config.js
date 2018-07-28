@@ -4,8 +4,7 @@ module.exports = {
   mode: 'development',
   context: path.resolve(__dirname, 'src'),
   entry: {
-    main: './index.js',
-    moduleA: './moduleA.js'
+    main: './index.js'
     // vendor: [] // 'react', 'react-dom', 'redux'
   },
   devtool: 'source-map', // for debugging?
@@ -16,6 +15,14 @@ module.exports = {
   },
   module: {
     rules: [
+      {
+        test: /\.csv/,
+        use: [
+          {
+            loader: './csv-to-json-loader.js'
+          }
+        ]
+      },
       {
         test: /\.js$/, // file name pattern
         exclude: /node_modules/,
