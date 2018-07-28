@@ -1,0 +1,18 @@
+{
+  "name": "webpack-workshop",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "webpack"
+  },
+  "keywords": [
+    "webpack"
+  ],
+  "author": "anirudhbs",
+  "license": "MIT",
+  "devDependencies": {
+    "webpack": "^4.16.3",
+    "webpack-cli": "^3.1.0"
+  }
+}
