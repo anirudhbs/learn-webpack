@@ -1,4 +1,14 @@
 const path = require('path')
+const CleanWebpackPlugin = require('clean-webpack-plugin')
+
+const pathsToClean = ['build']
+
+let cleanOptions = {
+  root: __dirname,
+  exclude: [],
+  verbose: true,
+  dry: false
+}
 
 module.exports = {
   mode: 'development',
@@ -56,5 +66,8 @@ module.exports = {
           }]
       }
     ]
-  }
+  },
+  plugins: [
+    new CleanWebpackPlugin(pathsToClean, cleanOptions),
+  ]
 }
