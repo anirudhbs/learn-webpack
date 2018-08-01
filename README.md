@@ -1,5 +1,6 @@
-# learn-webpack
+# ReactJS Workshop
 
-This repository contains code written while learning how to use webpack.
+This branch contains code written during the ReactJS workshop on Webpack
 
-https://www.codecademy.com/articles/react-setup-i
+## References
+* `http://slides.com/paramsingh/webpack`
